@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 0;
+            margin: 0;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 2rem;
+        }
+        .movie-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .movie-card img {
+            width: 100%;
+            height: auto;
+        }
+        .movie-title {
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Movie Dashboard</h1>
+    </nav>
+    <div class="movies-container">
+        {% for movie in movies %}
+            <div class="movie-card">
+                <img src="{{ image_base_url }}{{ movie.poster_path }}" alt="{{ movie.title }}">
+                <div class="movie-title">{{ movie.title }}</div>
+            </div>
+        {% empty %}
+            <p>No movies available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
