@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/moviestore.iml" filepath="$PROJECT_DIR$/.idea/moviestore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GTMovieStore.iml" filepath="$PROJECT_DIR$/.idea/GTMovieStore.iml" />
     </modules>
   </component>
 </project>
