@@ -1,16 +1,24 @@
 import requests
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
+from dashboard.models import Movie, Genre, MovieGenre
+import logging
 def movie_dashboard(request):
-    api_url = "https://api.themoviedb.org/3/movie/popular"
-    api_key = "8900ca2afeda851652760fdb0cf3690c"
-    params = {"api_key": api_key, "language": "en-US", "page": 1}
-
-    response = requests.get(api_url, params=params)
-    movies = response.json().get("results", []) if response.status_code == 200 else []
-
+    movies = Movie.objects.all()
     context = {
-        "movies": movies,
-        "image_base_url": "https://image.tmdb.org/t/p/w500/",
+        'movies': movies
     }
-    return render(request, "dashboard/movies.html", context)
+    return render(request, 'dashboard/movies.html', context)
+
+
+def movie_detail(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+
+    # FIXME: Delete when rating is implemented
+    movie.rating =5.0
+    user = request.user
+    associated_genres = Genre.objects.filter(moviegenre__movie=movie)
+    context = {
+        'movie': movie,
+        'genres': associated_genres
+    }
+    return render(request, 'dashboard/movie_detail.html', context)
