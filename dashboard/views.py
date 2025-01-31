@@ -22,3 +22,7 @@ def movie_detail(request, movie_id):
         'genres': associated_genres
     }
     return render(request, 'dashboard/movie_detail.html', context)
+
+
+def about(request):
+    return render(request, 'dashboard/about.html')
