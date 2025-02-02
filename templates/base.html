@@ -8,8 +8,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.1) 10%, rgba(0, 0, 0, 0.8) 60%, #2c1660 90%),
-                linear-gradient(to right, #301957, #2a1659);
+            background: radial-gradient(circle at 100% 70%, rgba(255, 255, 255, 0.1) 5%, rgba(0, 0, 0, 0.4) 60%, #170839 90%),
+                        radial-gradient(circle at 0% 30%, rgba(255, 255, 255, 0.1) 5%, rgba(0, 0, 0, 0.4) 60%, #170839 90%),
+                        #0e031e;
             background-attachment: fixed;
             min-height: 100vh;
             margin: 0;
@@ -21,14 +22,14 @@
         }
         .movies-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
             padding: 2rem;
             max-width: 1500px;
             margin: 0 auto;
         }
         .movie-card {
-            transition: transform 0.3s ease, filter 0.3s ease, opacity 0.2s ease;
+            transition: transform 0.3s ease, filter 0.3s ease;
             background-color: white;
             border-radius: 10px;
             overflow: hidden;

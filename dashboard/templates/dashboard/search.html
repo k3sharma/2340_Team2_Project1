@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Search GT Movies Store{% endblock %}
+{% block content %}
+    <div class="movies-container">
+        {% for movie in filtered_movies %}
+        <a href="{% url 'movie_detail' movie.id %}">
+            <div class="movie-card">
+                    <img src="{{ movie.image.url }}" alt="{{ movie.title }}">
+                    <div class="movie-title">{{ movie.title }}</div>
+            </div>
+        </a>
+        {% empty %}
+            <p>No movies available.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

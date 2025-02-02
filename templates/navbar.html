@@ -16,6 +16,14 @@
                     <a class="nav-link {% if request.path == '/cart' %}active{% endif %}" href="/cart">Cart</a>
                 </li>
             </ul>
+            <div style = "position:absolute; left: 40%;">
+                <form method="GET" action="{% url 'search' %}">
+                    <div class="input-group" style="margin:0 auto">
+                        <input type="search" name = "search-input" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                        <button id = "search-button" type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                    </div>
+                </form>
+            </div>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/login">
