@@ -35,8 +35,7 @@
     </div>
     <p class="card-text">
           <form method="post"
-            action="{% url 'cart.add'
-            id=template_data.movie.id %}">
+            action="{% url 'cart.add' id=movie.id %}">
             <div class="row">
               {% csrf_token %}
               <div class="col-auto">
