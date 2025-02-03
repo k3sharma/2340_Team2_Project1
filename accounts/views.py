@@ -10,6 +10,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from django.core.mail import send_mail
 from django.http import HttpResponse
+import logging
+logger = logging.getLogger(__name__)
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'accounts/password_reset.html'
@@ -20,30 +22,24 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
     success_url = reverse_lazy('movie_dashboard')
-#
-# def test_email(request):
-#     try:
-#         send_mail(
-#             'Django Email Test',
-#             'This is a test email from Django via SendGrid.',
-#             'kush3sharma@gmail.com',  # Must match the verified sender
-#             ['kush3sharma@gmail.com'],  # Your email to receive the test
-#             fail_silently=False,
-#         )
-#         return HttpResponse('Test email sent successfully!')
-#     except Exception as e:
-#         return HttpResponse(f'Error: {e}')
-#
-# class DebugPasswordResetView(PasswordResetView):
-#     def form_valid(self, form):
-#         print("Password reset form is valid.")  # Debugging log
-#         response = super().form_valid(form)
-#         print("Password reset email should be sent.")  # Debugging log
-#         return response
-#
-#     def form_invalid(self, form):
-#         print("Form is invalid:", form.errors)  # Debugging log
-#         return super().form_invalid(form)
+
+
+class DebugPasswordResetView(PasswordResetView):
+    def dispatch(self, request, *args, **kwargs):
+        logger.info(f"🚩 Incoming request: {request.method} to {request.path}")
+        print(f"🚩 Incoming request: {request.method} to {request.path}")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        logger.info("✅ Form is valid. Sending password reset email.")
+        print("✅ Form is valid. Sending password reset email.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        logger.error(f"❌ Form is invalid: {form.errors}")
+        print(f"❌ Form is invalid: {form.errors}")
+        return super().form_invalid(form)
+
 # for logout web request/response
 @login_required
 def logout(request):
