@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+from django.core.mail import send_mail
+load_dotenv()
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,8 +45,29 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cart',
-
+    'accounts', # adding accounts app to movie file
+    'rest_framework', # creating endpoints for user authentication
+    'django_rest_passwordreset' # password reset functionality
 ]
+
+DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 3600 # expiry time for password reset token in seconds
+DJANGO_REST_PASSWORDRESET_NO_INFORMATION_LEAKAGE = True # Django won't say if an email exists when trying to reset a password, for security reasons
+DJANGO_REST_MULTITOKENAUTH_REQUIRE_USABLE_PASSWORD = True # makes sure users have a usable password (not a temporary one) when resetting
+# generates a token of random characters for security purposes
+DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
+    "CLASS": "django_rest_passwordreset.tokens.RandomStringTokenGenerator"
+}
+
+
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'kush3sharma@gmail.com'
+EMAIL_HOST_PASSWORD = 'rvbrunapitgibirr'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
