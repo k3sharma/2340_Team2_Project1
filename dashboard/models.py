@@ -11,6 +11,7 @@ class Movie(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to=movie_image_path)
     release_date = models.DateField()
+    price = 16
 
     def get_absolute_url(self):
         return reverse('movie_detail', args=[str(self.id)])

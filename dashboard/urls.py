@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.movie_dashboard, name='movie_dashboard'),
     path('movie/<int:movie_id>/', views.movie_detail, name='movie_detail'),
     path('about/', views.about, name='about'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
