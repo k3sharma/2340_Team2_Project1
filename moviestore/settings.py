@@ -63,11 +63,11 @@ DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST = 'smtp.gmail.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_USER = 'kush3sharma@gmail.com'
+EMAIL_HOST_PASSWORD = 'baagikuvtqzgjddr'
 DEFAULT_FROM_EMAIL = 'kush3sharma@gmail.com'
 
 MIDDLEWARE = [
