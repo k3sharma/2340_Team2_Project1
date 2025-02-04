@@ -30,6 +30,10 @@ def movie_detail(request, movie_id):
 def about(request):
     return render(request, 'dashboard/about.html')
 
+def search(request):
+    query = request.GET.get('search-input')
+    filtered_movies = Movie.objects.filter(title__icontains=query) if query else Movie.objects.all()
+    return render(request, 'dashboard/search.html', {'filtered_movies': filtered_movies})
 @login_required
 def create_review(request, movie_id):
     if request.method == 'POST' and request.POST['comment'] != '':
