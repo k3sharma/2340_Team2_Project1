@@ -15,9 +15,9 @@
         </div>
         <h2>Reviews</h2>
         {% if user.is_authenticated %}
-            <form method="post" action="{% url 'add_review' movie.id %}">
+            <form method="post" action="{% url 'create_review' movie_id=movie.id %}">
                 {% csrf_token %}
-                <textarea name="content" placeholder="Write your review here..." required></textarea>
+                <textarea name="comment" placeholder="Write your review here..." required></textarea>
                 <button type="submit">Submit Review</button>
             </form>
         {% else %}
@@ -26,8 +26,8 @@
 
         {% for review in reviews %}
             <div class="review">
-                <p><strong>{{ review.user.username }}</strong> ({{ review.created_at|date:"Y-m-d H:i" }}):</p>
-                <p>{{ review.content }}</p>
+                <p><strong>{{ review.user.username }}</strong> ({{ review.date }}):</p>
+                <p>{{ review.comment }}</p>
             </div>
         {% empty %}
             <p>No reviews yet.</p>
