@@ -43,3 +43,20 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return str(self.id) + ' - ' + self.movie.title
+
+class Order(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id) + ' - ' + str(self.user.username)
+
+class OrderItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id) + ' - ' + self.movie.title
