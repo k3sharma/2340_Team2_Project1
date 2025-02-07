@@ -10,7 +10,9 @@
       {% for order in orders %}
       <div class="list-group-item mb-3 border rounded">
         <h4>Order ID: {{ order.id }}</h4>
-        <p>Date: {{ order.date|date:"F j, Y, g:i a" }}</p>
+        <p
+                style="color: black"
+        >Date: {{ order.date|date:"F j, Y, g:i a" }}</p>
         <h5>Items:</h5>
         <ul>
           {% for item in order.orderitem_set.all %}
