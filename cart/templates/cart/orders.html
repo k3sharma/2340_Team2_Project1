@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+  <h2
+    style="color:white"
+  >Order History</h2>
+
+  {% if orders %}
+    <div class="list-group">
+      {% for order in orders %}
+      <div class="list-group-item mb-3 border rounded">
+        <h4>Order ID: {{ order.id }}</h4>
+        <p>Date: {{ order.date|date:"F j, Y, g:i a" }}</p>
+        <h5>Items:</h5>
+        <ul>
+          {% for item in order.orderitem_set.all %}
+          <li>{{ item.movie.title }} — Quantity: {{ item.quantity }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No previous orders found.</p>
+  {% endif %}
+</div>
+{% endblock content %}

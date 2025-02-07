@@ -35,8 +35,8 @@
     </div>
     <div class="row">
       <div class="text-end">
-        <a class="btn btn-outline-secondary mb-2" style ="color:white"><b>Total
-          to pay:</b> ${{ template_data.cart_total }}</a>
+        <a class="btn btn-success mb-2 {% if template_data.movies_in_cart|length == 0 %}disabled{% endif %}" href="{% url 'cart.checkout' %}"
+           style ="color:white"><b>Checkout:</b> ${{ template_data.cart_total }}</a>
               {% if template_data.movies_in_cart|length > 0 %}
             <a href="{% url 'cart.clear' %}">
               <button class="btn btn-danger mb-2">
