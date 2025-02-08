@@ -17,10 +17,13 @@ from django.core.mail import send_mail
 load_dotenv()
 import logging
 logging.basicConfig(level=logging.DEBUG)
-
+import smtplib
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import certifi
+import ssl
 
+ssl_context = ssl.create_default_context(cafile=certifi.where())
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -47,7 +50,7 @@ INSTALLED_APPS = [
     'cart',
     'accounts', # adding accounts app to movie file
     'rest_framework', # creating endpoints for user authentication
-    'django_rest_passwordreset' # password reset functionality
+    'django_rest_passwordreset', # password reset functionality
 ]
 
 DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 3600 # expiry time for password reset token in seconds
@@ -60,14 +63,15 @@ DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
 
 
 
-
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = str(os.getenv('EMAIL_USER'))
-EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_PASSWORD'))
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'jjakgtmoviestore@gmail.com'
+EMAIL_HOST_PASSWORD = 'fswzlierthpkwwwn'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

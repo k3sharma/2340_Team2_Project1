@@ -20,6 +20,7 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'),
          name='password_reset_complete'),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     # path('test-email/', test_email, name='test_email'),
     # path('password-reset/', DebugPasswordResetView.as_view(), name='password_reset'),
 
