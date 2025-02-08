@@ -19,3 +19,7 @@ Thumbs.db
 
 !/media/movies/*.jpg
 /venv_test/
+
+__pycache__/
+
+
