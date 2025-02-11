@@ -68,5 +68,4 @@ def checkout(request):
 @login_required
 def orders(request):
     user_orders = Order.objects.filter(user=request.user).order_by('-date')
-    print(user_orders)
     return render(request, 'cart/orders.html', {'orders': user_orders})
