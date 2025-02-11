@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Genre, Movie, MovieGenre
+from .models import Genre, Movie, MovieGenre, Review, Order, OrderItem
+
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
@@ -16,3 +17,8 @@ class MovieAdmin(admin.ModelAdmin):
 
 admin.site.register(Genre)
 admin.site.register(MovieGenre)
+
+admin.site.register(Review)
+
+admin.site.register(Order)
+admin.site.register(OrderItem)

@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 import os
+from django.contrib.auth.models import User
 
 def movie_image_path(instance, filename):
     return os.path.join('movies', f"{str(instance.id)}_{instance.title.replace(' ', '_')}.jpg")
@@ -11,6 +12,7 @@ class Movie(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to=movie_image_path)
     release_date = models.DateField()
+    price = 16
 
     def get_absolute_url(self):
         return reverse('movie_detail', args=[str(self.id)])
@@ -32,3 +34,29 @@ class MovieGenre(models.Model):
 
     def __str__(self):
         return f"{self.movie.title} - {self.genre.name}"
+
+class Review(models.Model):
+    id = models.AutoField(primary_key=True)
+    comment = models.CharField(max_length=255)
+    date = models.DateTimeField(auto_now_add=True)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.id) + ' - ' + self.movie.title
+
+class Order(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id) + ' - ' + str(self.user.username)
+
+class OrderItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id) + ' - ' + self.movie.title

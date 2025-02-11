@@ -9,15 +9,21 @@
         </div>
         <div class="movie-info">
             <h1>{{ movie.title }}</h1>
+            <p>
+                <strong>Genre(s):</strong>
+                {% for genre in genres %}
+                    {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
             <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
             <p><strong>Rating:</strong> {{ movie.rating }}</p>
             <p><strong>Description:</strong> {{ movie.description }}</p>
         </div>
         <h2>Reviews</h2>
         {% if user.is_authenticated %}
-            <form method="post" action="{% url 'add_review' movie.id %}">
+            <form method="post" action="{% url 'create_review' movie_id=movie.id %}">
                 {% csrf_token %}
-                <textarea name="content" placeholder="Write your review here..." required></textarea>
+                <textarea name="comment" placeholder="Write your review here..." required></textarea>
                 <button type="submit">Submit Review</button>
             </form>
         {% else %}
@@ -26,17 +32,20 @@
 
         {% for review in reviews %}
             <div class="review">
-                <p><strong>{{ review.user.username }}</strong> ({{ review.created_at|date:"Y-m-d H:i" }}):</p>
-                <p>{{ review.content }}</p>
+                <p><strong>{{ review.user.username }}</strong> ({{ review.date }}):</p>
+                <p>{{ review.comment }}</p>
             </div>
+            {% if user.is_authenticated and user == review.user %}
+                <a class="btn btn-primary" href="{% url 'edit_review' movie_id=movie.id review_id=review.id %}">Edit</a>
+                <a class="btn btn-danger" href="{% url 'delete_review' movie_id=movie.id review_id=review.id %}">Delete</a>
+            {% endif %}
         {% empty %}
             <p>No reviews yet.</p>
         {% endfor %}
     </div>
     <p class="card-text">
           <form method="post"
-            action="{% url 'cart.add'
-            id=template_data.movie.id %}">
+            action="{% url 'cart.add' id=movie.id %}">
             <div class="row">
               {% csrf_token %}
               <div class="col-auto">
