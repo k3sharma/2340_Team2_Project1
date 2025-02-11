@@ -5,10 +5,13 @@
     {% if movies %}
         <div id="popularMoviesCarousel" class="carousel slide" data-bs-ride="carousel" style="padding-top: 10px; margin: 0 auto; max-width: 1400px">
             <div class="carousel-inner">
-                {% for movie in movies|slice:":3" %}
+                {% for movie in movies|slice:":5" %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                         <div class="image-wrapper">
-                            <img src="{{ movie.image.url }}" class="d-block w-100" alt="{{ movie.title }}">
+                            <a href="{% url 'movie_detail' movie.id %}">
+                                <img src="{{ movie.image.url }}" class="d-block w-100" alt="{{ movie.title }}">
+                            </a>
+
                         </div>
                     </div>
                 {% endfor %}
