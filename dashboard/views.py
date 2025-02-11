@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from dashboard.models import Movie, Genre, MovieGenre, Review
 from django.contrib.auth.decorators import login_required
 import logging
+import datetime
 def movie_dashboard(request):
     movies = Movie.objects.all()
     context = {
@@ -16,7 +17,7 @@ def movie_detail(request, movie_id):
     reviews = Review.objects.filter(movie=movie)
 
     # FIXME: Delete when rating is implemented
-    movie.rating =5.0
+    movie.rating = 5.0
     user = request.user
     associated_genres = Genre.objects.filter(moviegenre__movie=movie)
     context = {
@@ -46,3 +47,27 @@ def create_review(request, movie_id):
         return redirect('movie_detail', movie_id=movie_id)
     else:
         return redirect('movie_detail', movie_id=movie_id)
+
+@login_required
+def edit_review(request, movie_id, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    if request.user != review.user:
+        return redirect('movie_detail', movie_id=movie_id)
+    if request.method == 'GET':
+        template_data = {}
+        template_data['title'] = 'Edit Review'
+        template_data['review'] = review
+        return render(request, 'dashboard/edit_review.html', {'template_data': template_data})
+    elif request.method == 'POST' and request.POST['comment'] != '':
+        review = Review.objects.get(id=review_id)
+        review.comment = request.POST['comment']
+        review.save()
+        return redirect('movie_detail', movie_id=movie_id)
+    else:
+        return redirect('movie_detail', movie_id=movie_id)
+
+@login_required
+def delete_review(request, movie_id, review_id):
+    reveiw = get_object_or_404(Review, id=review_id, user=request.user)
+    reveiw.delete()
+    return redirect('movie_detail', movie_id=movie_id)

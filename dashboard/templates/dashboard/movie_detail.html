@@ -35,6 +35,10 @@
                 <p><strong>{{ review.user.username }}</strong> ({{ review.date }}):</p>
                 <p>{{ review.comment }}</p>
             </div>
+            {% if user.is_authenticated and user == review.user %}
+                <a class="btn btn-primary" href="{% url 'edit_review' movie_id=movie.id review_id=review.id %}">Edit</a>
+                <a class="btn btn-danger" href="{% url 'delete_review' movie_id=movie.id review_id=review.id %}">Delete</a>
+            {% endif %}
         {% empty %}
             <p>No reviews yet.</p>
         {% endfor %}

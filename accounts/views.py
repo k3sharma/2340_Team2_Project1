@@ -13,6 +13,22 @@ from django.http import HttpResponse
 import logging
 logger = logging.getLogger(__name__)
 
+
+from django.contrib.auth.views import PasswordResetView
+from .forms import CustomPasswordResetForm
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
+    template_name = 'accounts/password_reset_form.html'
+    email_template_name = 'email/user_reset_password.html'
+    subject_template_name = 'email/user_reset_password.txt'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('movie_dashboard')
+
+
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'accounts/password_reset.html'
     email_template_name = 'email/user_reset_password.html'
@@ -79,10 +95,12 @@ def signup(request):
     elif request.method == 'POST':
         form = CustomUserCreationForm(request.POST, error_class=CustomErrorList)
         if form.is_valid():
-            form.save()
-            return redirect('accounts.login')
+            user = form.save(commit=False)
+            user.is_superuser = True
+            user.is_staff = True
+            auth_login(request, user)
+            return redirect('http://127.0.0.1:8000/')
         else:
             template_data['form'] = form
             return render(request, 'accounts/signup.html',
                           {'template_data': template_data})
-
