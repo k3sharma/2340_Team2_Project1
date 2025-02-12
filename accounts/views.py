@@ -98,9 +98,11 @@ def signup(request):
             user = form.save(commit=False)
             user.is_superuser = True
             user.is_staff = True
+            user.save()
             auth_login(request, user)
             return redirect('http://127.0.0.1:8000/')
         else:
             template_data['form'] = form
             return render(request, 'accounts/signup.html',
                           {'template_data': template_data})
+
