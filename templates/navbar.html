@@ -25,12 +25,12 @@
                 <li class="nav-item">
                 <form method="GET" action="{% url 'search' %}">
                     <div class="input-group" style="margin:0 auto">
-                        <input type="search" name = "search-input" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                        <button id = "search-button" type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                        <input class="rounded-search"  type="search" name = "search-input"   placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
                     </div>
                 </form>
                 </li>
             </ul>
+
             <ul class="navbar-nav ms-auto">
                {% if user.is_authenticated %}
                 <a class="nav-link">Welcome {{ user.username }}!</a>
@@ -48,6 +48,7 @@
                 </a>
                 {% endif %}
             </ul>
+
         </div>
     </div>
 </nav>
