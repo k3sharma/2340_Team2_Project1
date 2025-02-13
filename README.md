@@ -12,5 +12,5 @@ Authors
 -------
 **Jerry Wang** (GTID: 903883389)\
 **Joshua Joseph** (GTID: )\
-**Aryan Patel** (GTID: )\
+**Aryan Patel** (GTID: 903973313)\
 **Kush Sharma** (GTID: )
