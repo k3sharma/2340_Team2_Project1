@@ -17,7 +17,8 @@
               href="{% url 'cart.index' %}">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/cart/orders/' %}active{% endif %}" href="{% url 'cart.orders' %}">Orders</a>
+                    <a class="nav-link {% if request.path == '/cart/orders/' %}active{% endif %}
+                    {% if not user.is_authenticated %} disabled {% endif %}" href="{% url 'cart.orders' %}">Orders</a>
                 </li>
             </ul>
             <ul class="navbar-nav me-auto">
