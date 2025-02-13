@@ -14,7 +14,7 @@ def movie_dashboard(request):
 
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
-    reviews = Review.objects.filter(movie=movie)
+    reviews = Review.objects.filter(movie=movie).order_by('-date')
 
     # FIXME: Delete when rating is implemented
     movie.rating = 5.0
